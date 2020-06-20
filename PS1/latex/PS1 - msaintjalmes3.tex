@@ -1,0 +1,1562 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PS1 - msaintjalmes3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Importing Numpy, OpenCV and Matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{cv2}  
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np} 
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib.patches} \PY{k+kn}{import} \PY{n}{Ellipse}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}Importing python utilities}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{from} \PY{n+nn}{timeit} \PY{k+kn}{import} \PY{n}{default\PYZus{}timer} \PY{k}{as} \PY{n}{timer}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{img0} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input0.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} <matplotlib.image.AxesImage at 0x16ce19b0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{1. Edge image}\label{edge-image}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{edges} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)} 
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{edges}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <matplotlib.image.AxesImage at 0x16ef5898>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{edges\PYZus{}cord} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{edges} \PY{o}{==} \PY{l+m+mi}{255}\PY{p}{)}
+        \PY{n}{edges\PYZus{}cord}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{}edges detected}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 1406L
+\end{Verbatim}
+            
+    \section{2. Hough method for finding
+lines}\label{hough-method-for-finding-lines}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img0}\PY{o}{.}\PY{n}{shape}
+        \PY{n}{rad} \PY{o}{=} \PY{k}{lambda} \PY{n}{deg}\PY{p}{:} \PY{n}{deg} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{pi} \PY{o}{/} \PY{l+m+mf}{180.} \PY{c+c1}{\PYZsh{}lambda for converting to rad}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{x\PYZus{}max} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{+} \PY{n}{y\PYZus{}max} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}polar transformation}
+        \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{180} \PY{c+c1}{\PYZsh{} from \PYZhy{}90 to +90°}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{H} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{d\PYZus{}max}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{for} \PY{n}{edge} \PY{o+ow}{in} \PY{n}{edges\PYZus{}cord}\PY{p}{:}
+            \PY{k}{for} \PY{n}{theta} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{p}{)}\PY{p}{:}
+                \PY{n}{d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}d \PYZgt{} 0}
+                \PY{n}{H}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{theta}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}sampling per unit}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.5}\PY{p}{)} \PY{c+c1}{\PYZsh{}thresholding}
+         \PY{n}{max\PYZus{}values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} array([[  8,   0],
+                [  8,  90],
+                [127,   0],
+                [127,  90],
+                [245,   0],
+                [245,  90]], dtype=int64)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{H}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gnuplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}a cmap that makes the sinusoids visible}
+         \PY{k}{for} \PY{n+nb}{max} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{peak}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hough space}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{produce\PYZus{}line}\PY{p}{(}\PY{n}{peak}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:} \PY{c+c1}{\PYZsh{}case where theta = 0}
+                 \PY{k}{return} \PY{p}{[}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} turning back to cartesian coordinates}
+             \PY{c+c1}{\PYZsh{} x = r cos(theta), y = r sin(theta)}
+             \PY{c+c1}{\PYZsh{}but we need some margin to define the (infinite) lines/segments and not just points }
+             \PY{k}{return} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{90}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1000} \PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{90}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                     \PY{n+nb}{int}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{90}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1000} \PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{90}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                     \PY{n+nb}{int}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{90}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1000} \PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{90}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                     \PY{n+nb}{int}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{90}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1000} \PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{90}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} [xstart, xend, ystart, yend]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{produce\PYZus{}line}\PY{p}{,} \PY{n}{max\PYZus{}values}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <matplotlib.image.AxesImage at 0x172f4518>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A very straightoforward discretization was chosen for the bin sizes.
+Since this image is very sharp with distinct lines, we have very clear
+edges with no noise. As we can see in the Hough accumulator plot, all
+the sinusoids intersect at very distinct points, corresponding to our
+peaks (in Hough space, i.e. lines in image space). So the most refined
+discretization, with one bin for each degree of theta (360) and each
+increment of the unit of r (with a rounding function, so 363 in total)
+has been suitable for this part.
+
+    \section{3. Noise}\label{noise}
+
+    \subsection{3.a. Smoothed image}\label{a.-smoothed-image}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{img0\PYZus{}noisy} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input0\PYZhy{}noise.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img0\PYZus{}noisy}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.image.AxesImage at 0x1740ef60>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{img0\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img0\PYZus{}noisy}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img0\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.image.AxesImage at 0x1a959518>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{3.b. Edges for regular and smoothed
+images}\label{b.-edges-for-regular-and-smoothed-images}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{edges\PYZus{}noisy} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img0\PYZus{}noisy}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{)} 
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{edges\PYZus{}noisy}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.image.AxesImage at 0x16e54d30>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img0\PYZus{}blurred}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{70}\PY{p}{)} \PY{c+c1}{\PYZsh{}higher thresholds to reduce noise inside squares}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} <matplotlib.image.AxesImage at 0x17173390>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{3.c. Hough transformed of the blurred
+image}\label{c.-hough-transformed-of-the-blurred-image}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{H} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{d\PYZus{}max}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{edges\PYZus{}cord} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{edges\PYZus{}blurred} \PY{o}{==} \PY{l+m+mi}{255}\PY{p}{)}
+         \PY{k}{for} \PY{n}{edge} \PY{o+ow}{in} \PY{n}{edges\PYZus{}cord}\PY{p}{:}
+             \PY{k}{for} \PY{n}{theta} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{H}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{theta}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hough space}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Compared to the previous (noise-free) image, it is difficult to exactly
+determine the peaks from the previous image. While we have a general
+idea (both visually and from the previous experience), the bright areas
+with a lot of votes seem more spread out.\\
+The simple bins (1 for each increment of a degree in theta and each
+increment in r) are not suitable anymore. We have to rely on larger bins
+that will be able to detect lines even with noise on the image.\\
+If we continue ploting lines for the peaks in Hough space with this
+binning, we get a lot of lines that are close to each other (off by only
+a few pixels):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{produce\PYZus{}line}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img0\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <matplotlib.image.AxesImage at 0x1b09b630>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can vary the threshold for peak selection (here, only those that have
+half as much votes in their bins as the most voted one) to reduce the
+amount of lines that are going to be plotted, but it does not give
+satisfying results as some edges will have all lines disapearing
+together while others will keep multiple similar lines with a higher
+threshold.\\
+We will now define a custom accumulator for larger bins.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{custom\PYZus{}accumulator}\PY{p}{(}\PY{n}{edges}\PY{p}{,} \PY{n}{d\PYZus{}max}\PY{p}{,} \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{180}\PY{p}{,} \PY{n}{d\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{theta\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{H} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{d\PYZus{}max} \PY{o}{/} \PY{n}{d\PYZus{}step}\PY{p}{,} \PY{n}{theta\PYZus{}max} \PY{o}{/} \PY{n}{theta\PYZus{}step}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{edges\PYZus{}cord} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{edges} \PY{o}{==} \PY{l+m+mi}{255}\PY{p}{)}
+             \PY{k}{for} \PY{n}{edge} \PY{o+ow}{in} \PY{n}{edges\PYZus{}cord}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{theta} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{theta\PYZus{}max}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{H}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{d} \PY{o}{/} \PY{n}{d\PYZus{}step}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{theta\PYZus{}max}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{theta}\PY{p}{)} \PY{o}{/} \PY{n}{theta\PYZus{}step}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{k}{return} \PY{n}{H}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{sampling\PYZus{}fix}\PY{p}{(}\PY{n}{peak}\PY{p}{,} \PY{n}{d\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{theta\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{o}{*}\PY{n}{d\PYZus{}step}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{peak}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{o}{*}\PY{n}{theta\PYZus{}step}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{H} \PY{o}{=} \PY{n}{custom\PYZus{}accumulator}\PY{p}{(}\PY{n}{edges\PYZus{}blurred}\PY{p}{,} \PY{n}{d\PYZus{}max}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.71}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+         \PY{k}{for} \PY{n+nb}{max} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{peak}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hough space}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{produce\PYZus{}line}\PY{p}{,} \PY{p}{[}\PY{n}{sampling\PYZus{}fix}\PY{p}{(}\PY{n}{peak}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{peak} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img0\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} <matplotlib.image.AxesImage at 0x1b4dec50>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There are a few parameters that were tuned here: the theta and d steps,
+allowing larger bins as well as the threshold for selecting peaks (given
+as a ratio of the votes in the most voted bin).\\
+The output image is not perfect, as there is still a couple of lines
+that shouldn't appear (but can't be removed by varying the threshold
+parameter without deleting another important line).\\
+This is still an improvement compared to using the standard (1, 1) bin
+steps that we have seen previously. By plotting the points in Hough
+space, we can see that the peaks are much less spread out and are
+clearer (on one point instead of being on a region).
+
+This is the result we have on the original image with noise:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{produce\PYZus{}line}\PY{p}{,} \PY{p}{[}\PY{n}{sampling\PYZus{}fix}\PY{p}{(}\PY{n}{peak}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{peak} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img0\PYZus{}noisy}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} <matplotlib.image.AxesImage at 0x1cf5d5f8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{4. Image with pens and coins}\label{image-with-pens-and-coins}
+
+    \subsection{4.a. Smoothing the image}\label{a.-smoothing-the-image}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{img1} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input1.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img1}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} <matplotlib.image.AxesImage at 0x1d064320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{img1\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img1}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{19}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img1\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} <matplotlib.image.AxesImage at 0x1d3a7160>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.b. Edge image}\label{b.-edge-image}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{img1\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img1\PYZus{}blurred}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img1\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax}\PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} <matplotlib.image.AxesImage at 0x1d5f1e10>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4.c. Hough for pens}\label{c.-hough-for-pens}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img1}\PY{o}{.}\PY{n}{shape}
+         
+         \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{x\PYZus{}max} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{+} \PY{n}{y\PYZus{}max} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}polar transformation}
+         \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{180}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{H} \PY{o}{=} \PY{n}{custom\PYZus{}accumulator}\PY{p}{(}\PY{n}{img1\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{d\PYZus{}max}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.8}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+         \PY{k}{for} \PY{n+nb}{max} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{peak}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hough space}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{max\PYZus{}values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} array([[262, 143],
+                [284, 143],
+                [504,  76],
+                [524,  76]], dtype=int64)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{produce\PYZus{}line}\PY{p}{,} \PY{p}{[}\PY{n}{sampling\PYZus{}fix}\PY{p}{(}\PY{n}{peak}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{peak} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img1\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} <matplotlib.image.AxesImage at 0x17242a90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Like the first image, this one does not have a lot of noise (and most of
+it was suppressed thanks to the smoothing step). In this case, we can
+also rely on a tight binning (resolution of 1 degree and 1 unit in r).
+There were some lines that were close to the ones present (parallel and
+off by a few pixels), but it was simpler to change the threshold
+parameter to get the desired image, as the four lines plotted correspond
+to maxima in Hough space.\\
+We would not rely on this approach when increasing the threshold makes
+important lines disappear (like in the previous example) in favor of the
+"noise" lines.
+
+    \section{5. Circles}\label{circles}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{img1\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img1\PYZus{}blurred}\PY{p}{,} \PY{l+m+mi}{70}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img1\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax}\PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} <matplotlib.image.AxesImage at 0x1b463320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We're generating a new edge image with lower thresholds for the Canny
+detector in order to better capture the edges of the coins (which is the
+main focus of this part).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k}{def} \PY{n+nf}{circles\PYZus{}accumulator}\PY{p}{(}\PY{n}{edges}\PY{p}{,} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{r\PYZus{}max}\PY{p}{)}\PY{p}{:}
+             \PY{n}{edges\PYZus{}cord} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{edges} \PY{o}{==} \PY{l+m+mi}{255}\PY{p}{)}
+             
+             \PY{n}{r\PYZus{}range} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{r\PYZus{}max} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{a\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{edges\PYZus{}cord}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{r\PYZus{}max} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{b\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{edges\PYZus{}cord}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{r\PYZus{}max} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}                
+             \PY{n}{H} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{a\PYZus{}max}\PY{p}{,} \PY{n}{b\PYZus{}max}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{r\PYZus{}range}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{e}\PY{p}{,} \PY{n}{edge} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{edges\PYZus{}cord}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}print(str(e*100./edges\PYZus{}cord.shape[0]) + \PYZsq{}\PYZpc{}\PYZsq{})}
+                 \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{r\PYZus{}range}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{theta} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{360}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{r}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{r}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                         \PY{n}{H}\PY{p}{[}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{r} \PY{o}{\PYZhy{}} \PY{n}{r\PYZus{}min}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{k}{return} \PY{n}{H}
+\end{Verbatim}
+
+
+    A new accumulator function was necessary.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{H} \PY{o}{=} \PY{n}{circles\PYZus{}accumulator}\PY{p}{(}\PY{n}{img1\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.6}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{circle} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+             \PY{n}{c} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{Circle}\PY{p}{(}\PY{p}{(}\PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{n+nb+bp}{False}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img1\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} <matplotlib.image.AxesImage at 0x23550908>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The search for circles was performed using the single point method.
+There are three parameters in Hough space: a, b and r. The first two
+correspond to the location of a possible center in image space, while r
+is the radius of this circle. By having each edge (most are points on
+the contour of a circle) vote, we get cones in Hough space for possible
+circles and radii. For each circle in the image, since each "edge" point
+is voting for a candidate center, the intersections of the cones in
+Hough space correspond to the most likely center + radius in the image.
+
+The parameters that were tested and changed for this part are the Canny
+detector threshold (so that the circles would be present in the edge
+image), the Hough accumulator threshold
+(\texttt{max\_values\ =\ np.argwhere(H\ \textgreater{}\ H.max()\ *\ 0.6)},
+0.6 is our relative threshold to the highest intensity value of the
+Hough accumulator) and the range of possible radii in the image. By
+lowering the r\_min parameter, we have some false positives at the ends
+of each pen, since they are also round. Increasing the minimum threshold
+(to circles of a minimum 15 px radius) therefore eliminates these false
+positives. The higher threshold r\_max allows us to limit this
+(expensive) search in three dimensions for possible circles. The coins
+in the image only have an 18 to 28 radius, so limiting the search to a
+50 pixel radius seemed reasonable.
+
+    \section{6. Realistic images}\label{realistic-images}
+
+    \subsection{6.a. Lines (input 2)}\label{a.-lines-input-2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{}imports for interactive jupyter}
+         \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k+kn}{import} \PY{n}{print\PYZus{}function}
+         \PY{k+kn}{from} \PY{n+nn}{ipywidgets} \PY{k+kn}{import} \PY{n}{interact}\PY{p}{,} \PY{n}{interactive}\PY{p}{,} \PY{n}{fixed}\PY{p}{,} \PY{n}{interact\PYZus{}manual}
+         \PY{k+kn}{import} \PY{n+nn}{ipywidgets} \PY{k+kn}{as} \PY{n+nn}{widgets}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}Interact commented for report generation (no output shown)}
+         \PY{c+c1}{\PYZsh{}@interact(threshold = (0.0,1.,0.01), step\PYZus{}d = (1,20), step\PYZus{}theta = (1,20), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          canny\PYZus{}1 = (10,150,10), canny\PYZus{}2 = (50,300,10), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          gauss\PYZus{}sigma = (1,10), filter\PYZus{}size = (5,31,2))}
+         \PY{k}{def} \PY{n+nf}{img2\PYZus{}pens}\PY{p}{(}\PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.53}\PY{p}{,} \PY{n}{step\PYZus{}d} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{step\PYZus{}theta} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{canny\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{60}\PY{p}{,} \PY{n}{canny\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{200}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{filter\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+             \PY{n}{img2\PYZus{}pens} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input2.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+             \PY{n}{img2\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img2\PYZus{}pens}\PY{p}{,} \PY{p}{(}\PY{n}{filter\PYZus{}size}\PY{p}{,} \PY{n}{filter\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+         
+             \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{180}
+             \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img2\PYZus{}pens}\PY{o}{.}\PY{n}{shape}
+         
+             \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{img2\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img2\PYZus{}blurred}\PY{p}{,} \PY{n}{canny\PYZus{}1}\PY{p}{,} \PY{n}{canny\PYZus{}2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img2\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+             
+             \PY{n}{H} \PY{o}{=} \PY{n}{custom\PYZus{}accumulator}\PY{p}{(}\PY{n}{img2\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{d\PYZus{}max}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{p}{,} \PY{n}{step\PYZus{}d}\PY{p}{,} \PY{n}{step\PYZus{}theta}\PY{p}{)}
+             \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{threshold}\PY{p}{)}
+                 
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+             \PY{k}{for} \PY{n+nb}{max} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{peak}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hough space}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{produce\PYZus{}line}\PY{p}{,} \PY{p}{[}\PY{n}{sampling\PYZus{}fix}\PY{p}{(}\PY{n}{peak}\PY{p}{,} \PY{n}{step\PYZus{}d}\PY{p}{,} \PY{n}{step\PYZus{}theta}\PY{p}{)} \PY{k}{for} \PY{n}{peak} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img2\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}Force function output with best parameters for report generation (no output shown otherwise)}
+         \PY{n}{img2\PYZus{}pens}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{6.b. Issues with line
+detection}\label{b.-issues-with-line-detection}
+
+    One of the issues was to select appropriate Canny parameters as well as
+smoothing parameters (filter size and gaussian \(\sigma\) in order for
+the left pen to be sufficiently present in the edge image. Even with the
+best parameters found, we can see that the laft pen's shape is not well
+refined. There were generally not any issues with the right pen. However
+if this step is not correctly done, then the results we get by using the
+Hough accumulator will be disappointing. Most of the time, it resulted
+in only either the left border of the left pen or its right border being
+correctly detected.
+
+That said, the other constraint we have is to limit the number of false
+positives. To some extent, varying the Canny parameters had its
+importance to remove unnecessary lines in the edge image, but it was
+mostly due to the selection of an appropriate accumulator threshold
+(here only bins that had 53\% as much votes as the most voted for bin
+were kept).
+
+Regarding false positives, they are of several types: * The edge of the
+book, on the right part of the image * The left and right borders of the
+black part of the book (which is logical given the difference in color
+intensities between these two parts) * A black diagonal line on the
+printing of the book (for the same reasons) which is especially well
+detected on the Canny edge image * Two vertical lines due to prining on
+the book (the "n" and the text on the black patch) * Parallel lines on
+the borders of the right pen. Using the same technique as with the 1st
+(noisy) image didn't work: while one could expect a looser binning (for
+d, increasing the \texttt{step\_d} therefore decreasing the number of
+bins in the Hough accumulator) to merge the detected lines, it actually
+has the opposite effect in this particular image: non-maxima that were
+previously eliminated through thresholding end up merging in single bins
+and causing new lines to be detected. This can be seen on the Hough
+accumulator plot: there is a very large region around
+\([0,170]_d\times[30,50]_{\theta}\) where lines intersect but non-maxima
+have been eliminated. Merging values in this space results in more peaks
+being detected (and that are difficult to remove with higher
+thresholding without removing peaks corresponding to other line areas of
+the image).
+
+    \subsection{6.c. Improving accuracy}\label{c.-improving-accuracy}
+
+    While some operations have already been attempted to reduce false
+positives (including binning size for parallel lines and higher
+thresholding for the Hough accumulator), we will focus on other
+approaches to get the expected result.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k}{def} \PY{n+nf}{max\PYZus{}filter}\PY{p}{(}\PY{n}{accumulator}\PY{p}{,} \PY{n}{d\PYZus{}area} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{theta\PYZus{}area} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{new\PYZus{}acc} \PY{o}{=} \PY{n}{accumulator}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{p}{(}\PY{n}{d\PYZus{}boundary}\PY{p}{,} \PY{n}{theta\PYZus{}boundary}\PY{p}{)} \PY{o}{=} \PY{n}{accumulator}\PY{o}{.}\PY{n}{shape}
+             \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d\PYZus{}area}\PY{p}{,} \PY{n}{d\PYZus{}boundary} \PY{o}{\PYZhy{}} \PY{n}{d\PYZus{}area} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{theta\PYZus{}area}\PY{p}{,} \PY{n}{theta\PYZus{}boundary} \PY{o}{\PYZhy{}} \PY{n}{theta\PYZus{}area} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{argmax} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unravel\PYZus{}index}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{new\PYZus{}acc}\PY{p}{[}\PY{n}{d}\PY{o}{\PYZhy{}}\PY{n}{d\PYZus{}area}\PY{p}{:}\PY{n}{d}\PY{o}{+}\PY{n}{d\PYZus{}area}\PY{p}{,} \PY{n}{t}\PY{o}{\PYZhy{}}\PY{n}{theta\PYZus{}area}\PY{p}{:}\PY{n}{t}\PY{o}{+}\PY{n}{theta\PYZus{}area}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{d\PYZus{}area}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{theta\PYZus{}area}\PY{p}{)}\PY{p}{)} 
+                     \PY{n+nb}{max} \PY{o}{=} \PY{n}{new\PYZus{}acc}\PY{p}{[}\PY{n}{d}\PY{o}{\PYZhy{}}\PY{n}{d\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{o}{\PYZhy{}}\PY{n}{theta\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                     \PY{n}{new\PYZus{}acc}\PY{p}{[}\PY{n}{d}\PY{o}{\PYZhy{}}\PY{n}{d\PYZus{}area}\PY{p}{:}\PY{n}{d}\PY{o}{+}\PY{n}{d\PYZus{}area}\PY{p}{,} \PY{n}{t}\PY{o}{\PYZhy{}}\PY{n}{theta\PYZus{}area}\PY{p}{:}\PY{n}{t}\PY{o}{+}\PY{n}{theta\PYZus{}area}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                     \PY{n}{new\PYZus{}acc}\PY{p}{[}\PY{n}{d}\PY{o}{\PYZhy{}}\PY{n}{d\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{t}\PY{o}{\PYZhy{}}\PY{n}{theta\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n+nb}{max}
+             \PY{k}{return} \PY{n}{new\PYZus{}acc}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{def} \PY{n+nf}{neighborhood\PYZus{}coord}\PY{p}{(}\PY{n}{point}\PY{p}{,} \PY{n}{border}\PY{p}{)}\PY{p}{:}
+             \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{o+ow}{not} \PY{p}{(}\PY{p}{(}\PY{n}{i} \PY{o}{==} \PY{n}{j} \PY{o+ow}{and} \PY{n}{j} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)} \PY{o+ow}{or} \PY{n}{point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0} \PY{o+ow}{or} \PYZbs{}
+                             \PY{n}{point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{j} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0} \PY{o+ow}{or} \PY{n}{point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{i} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{border}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o+ow}{or} \PY{n}{point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{j} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{border}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:} 
+                         \PY{n}{l}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{i}\PY{p}{,} \PY{n}{point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{j}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{l}
+         
+         \PY{k}{def} \PY{n+nf}{minimum\PYZus{}length\PYZus{}2}\PY{p}{(}\PY{n}{edge\PYZus{}im}\PY{p}{)}\PY{p}{:}
+             \PY{n}{new\PYZus{}im} \PY{o}{=} \PY{n}{edge\PYZus{}im}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{edges\PYZus{}cord} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{new\PYZus{}im} \PY{o}{==} \PY{l+m+mi}{255}\PY{p}{)}
+             \PY{k}{for} \PY{n}{edge} \PY{o+ow}{in} \PY{n}{edges\PYZus{}cord}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{[}\PY{n}{new\PYZus{}im}\PY{p}{[}\PY{n+nb}{tuple}\PY{p}{(}\PY{n}{index}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n}{neighborhood\PYZus{}coord}\PY{p}{(}\PY{n}{edge}\PY{p}{,} \PY{n}{new\PYZus{}im}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{new\PYZus{}im}\PY{p}{[}\PY{n+nb}{tuple}\PY{p}{(}\PY{n}{edge}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{return} \PY{n}{new\PYZus{}im}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{}Interact commented for report generation (no output shown)}
+         \PY{c+c1}{\PYZsh{}@interact(threshold = (0.0,1.,0.01), step\PYZus{}d = (1,20), step\PYZus{}theta = (1,20), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          canny\PYZus{}1 = (10,150,10), canny\PYZus{}2 = (50,300,10), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          gauss\PYZus{}sigma = (1,10), filter\PYZus{}size = (5,31,2))}
+         \PY{k}{def} \PY{n+nf}{img2\PYZus{}pens}\PY{p}{(}\PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.53}\PY{p}{,} \PY{n}{step\PYZus{}d} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{step\PYZus{}theta} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{canny\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{60}\PY{p}{,} \PY{n}{canny\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{200}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{filter\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+             \PY{n}{img2\PYZus{}pens} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input2.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+             \PY{n}{img2\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img2\PYZus{}pens}\PY{p}{,} \PY{p}{(}\PY{n}{filter\PYZus{}size}\PY{p}{,} \PY{n}{filter\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+         
+             \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{180}
+             \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img2\PYZus{}pens}\PY{o}{.}\PY{n}{shape}
+         
+             \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{img2\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img2\PYZus{}blurred}\PY{p}{,} \PY{n}{canny\PYZus{}1}\PY{p}{,} \PY{n}{canny\PYZus{}2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img2\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+             
+             \PY{n}{img2\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{minimum\PYZus{}length\PYZus{}2}\PY{p}{(}\PY{n}{img2\PYZus{}edges\PYZus{}blurred}\PY{p}{)} \PY{c+c1}{\PYZsh{}remove isolated points}
+             
+             \PY{n}{H} \PY{o}{=} \PY{n}{custom\PYZus{}accumulator}\PY{p}{(}\PY{n}{img2\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{d\PYZus{}max}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{p}{,} \PY{n}{step\PYZus{}d}\PY{p}{,} \PY{n}{step\PYZus{}theta}\PY{p}{)}
+             \PY{n}{H} \PY{o}{=} \PY{n}{max\PYZus{}filter}\PY{p}{(}\PY{n}{H}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{c+c1}{\PYZsh{}suppressing local non\PYZhy{}maxima}
+             \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{threshold}\PY{p}{)}
+                 
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+             \PY{k}{for} \PY{n+nb}{max} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{peak}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hough space}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{produce\PYZus{}line}\PY{p}{,} \PY{p}{[}\PY{n}{sampling\PYZus{}fix}\PY{p}{(}\PY{n}{peak}\PY{p}{,} \PY{n}{step\PYZus{}d}\PY{p}{,} \PY{n}{step\PYZus{}theta}\PY{p}{)} \PY{k}{for} \PY{n}{peak} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img2\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}Force function output with best parameters for report generation (no output shown otherwise)}
+         \PY{n}{img2\PYZus{}pens}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Following the three possible operations, we get a better image the
+(almost-parallel) lines along the right pen were successfully removed
+using local non-maxima suppression (\texttt{max\_filter}) and
+\texttt{minimum\_length\_2} removes any edge point from the Canny edge
+image that is not linked to another in its neighborhood (left, right,
+up, down or diagonally).\\
+This second function did not have any influence in this case however as
+the chosen Canny parameters were already such that no such isolated edge
+existed. Increasing the minimum length (from 2 to \(n\)) probably
+wouldn't have helped in this case: there are clear lines on the edge
+image (hundreds of pixels long) for the black patch and the boders of
+the book.
+
+    \section{7. Circles (input 2)}\label{circles-input-2}
+
+    \subsection{7.a. Smoothing \& finding}\label{a.-smoothing-finding}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{}Interact commented for report generation (no output shown)}
+         \PY{c+c1}{\PYZsh{}@interact(threshold = (0.0,1.,0.01), r\PYZus{}min = (1,30), r\PYZus{}max = (5,70), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          canny\PYZus{}1 = (10,150,10), canny\PYZus{}2 = (50,300,10), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          gauss\PYZus{}sigma = (1,10), filter\PYZus{}size = (5,31,2))}
+         \PY{k}{def} \PY{n+nf}{img2\PYZus{}coins}\PY{p}{(}\PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.67}\PY{p}{,} \PY{n}{r\PYZus{}min} \PY{o}{=} \PY{l+m+mi}{25}\PY{p}{,} \PY{n}{r\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{45}\PY{p}{,} \PY{n}{canny\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{40}\PY{p}{,} \PY{n}{canny\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{60}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{filter\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+             \PY{n}{start} \PY{o}{=} \PY{n}{timer}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{img2\PYZus{}coins} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input2.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+             \PY{n}{img2\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img2\PYZus{}coins}\PY{p}{,} \PY{p}{(}\PY{n}{filter\PYZus{}size}\PY{p}{,}\PY{n}{filter\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+         
+             \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{360}
+             \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img2\PYZus{}coins}\PY{o}{.}\PY{n}{shape}
+         
+             \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{img2\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img2\PYZus{}blurred}\PY{p}{,} \PY{n}{canny\PYZus{}1}\PY{p}{,} \PY{n}{canny\PYZus{}2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img2\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+             
+             \PY{n}{H} \PY{o}{=} \PY{n}{circles\PYZus{}accumulator}\PY{p}{(}\PY{n}{img2\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{r\PYZus{}max}\PY{p}{)}
+         
+             \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{threshold}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{circle} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+                 \PY{n}{c} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{Circle}\PY{p}{(}\PY{p}{(}\PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{n+nb+bp}{False}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img2\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+         
+             \PY{n}{end} \PY{o}{=} \PY{n}{timer}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(end\PYZhy{}start)}
+             
+         \PY{c+c1}{\PYZsh{}Force function output with best parameters for report generation (no output shown otherwise)}
+         \PY{n}{img2\PYZus{}coins}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{7.b. False positives}\label{b.-false-positives}
+
+    Just like with the line case, the whole detection process was
+encapsulated in a function that is used with Jupyter's interactive
+widgets capabilities. The parameters that were used to determine the
+optimal detector finding all the coins were the following: *
+\texttt{filter\_size} and \texttt{gauss\_sigma}: the size of the
+smoothing filter and corresponding \(\sigma\) gaussian blur *
+\texttt{canny\_1} and \texttt{canny\_2}: the two thresholds for Canny
+edge detection * \texttt{r\_min} and \texttt{r\_max}: the interval
+defining the radii that candidate circles might have\\
+* \texttt{threshold}: a relative threshold to select peaks in the Hough
+accumulator, as a proportion of the most voted for bin of the
+accumulator
+
+The most crucial false positives were eliminated through trial and error
+for different combinations of all these parameters. Notably: * A circle
+was previously found inside the "n" shape of the book * A circle was
+found between multiple coins: as the text in the black patch of the book
+accounted for quite a few edges, a cricle was found between the lower
+three coins of the patch. It was supported by the edges from the coins
+and from the text, linking edges between the coins\\
+These false alarms were eliminated with better thresholding.
+
+The result shown here is not perfect: there is a lot of overlap in the
+coins. Because of the smoothing and Canny parameters chosen, the imprint
+on the coins as well as the book background (shapes, text seen on the
+edge image) sometimes cause multiple circles to be found very close to
+each other with centers and radii varying only by a few pixels. This
+result was kept because the small coin on the left is very hard to
+capture and increasing detection thresholds would result in losing its
+detected circle. This is the best result that was found when looking for
+\(\textbf{all}\) of the coins, but smoother results ignoring that
+particular coin gives us much better accuracy for the other coins (less
+overlap and pixel shifts).
+
+A possible solution would be to implement posterior non-maxima local
+suppression (like the \texttt{max\_filter} for lines): * if two circles
+around the same values of (a,b) have a similar r then we could manually
+null (setting the accumulator's bins to 0) the ones that are non-maxima
+(only in each neighbourhood). * the same procedure could be applied for
+small shifts in circle centers (i.e. a and/or b off by a few units)
+where close bins all have a high number of votes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{k}{def} \PY{n+nf}{max\PYZus{}filter\PYZus{}circle}\PY{p}{(}\PY{n}{accumulator}\PY{p}{,} \PY{n}{a\PYZus{}area} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{b\PYZus{}area} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{r\PYZus{}area} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{new\PYZus{}acc} \PY{o}{=} \PY{n}{accumulator}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{p}{(}\PY{n}{a\PYZus{}boundary}\PY{p}{,} \PY{n}{b\PYZus{}boundary}\PY{p}{,} \PY{n}{r\PYZus{}boundary}\PY{p}{)} \PY{o}{=} \PY{n}{accumulator}\PY{o}{.}\PY{n}{shape}
+             \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{a\PYZus{}area}\PY{p}{,} \PY{n}{a\PYZus{}boundary} \PY{o}{\PYZhy{}} \PY{n}{a\PYZus{}area} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{b\PYZus{}area}\PY{p}{,} \PY{n}{b\PYZus{}boundary} \PY{o}{\PYZhy{}} \PY{n}{b\PYZus{}area} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{r\PYZus{}area}\PY{p}{,} \PY{n}{r\PYZus{}boundary} \PY{o}{\PYZhy{}} \PY{n}{r\PYZus{}area} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{argmax} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unravel\PYZus{}index}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(} \PYZbs{}
+                             \PY{n}{new\PYZus{}acc}\PY{p}{[}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}area}\PY{p}{:}\PY{n}{a}\PY{o}{+}\PY{n}{a\PYZus{}area}\PY{p}{,} \PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{b\PYZus{}area}\PY{p}{:}\PY{n}{b}\PY{o}{+}\PY{n}{b\PYZus{}area}\PY{p}{,} \PY{n}{r}\PY{o}{\PYZhy{}}\PY{n}{r\PYZus{}area}\PY{p}{:}\PY{n}{r}\PY{o}{+}\PY{n}{r\PYZus{}area}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{a\PYZus{}area}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{b\PYZus{}area}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{r\PYZus{}area}\PY{p}{)}\PY{p}{)} 
+                         \PY{n+nb}{max} \PY{o}{=} \PY{n}{new\PYZus{}acc}\PY{p}{[}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{b\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{r}\PY{o}{\PYZhy{}}\PY{n}{r\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}
+                         \PY{n}{new\PYZus{}acc}\PY{p}{[}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}area}\PY{p}{:}\PY{n}{a}\PY{o}{+}\PY{n}{a\PYZus{}area}\PY{p}{,} \PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{b\PYZus{}area}\PY{p}{:}\PY{n}{b}\PY{o}{+}\PY{n}{b\PYZus{}area}\PY{p}{,} \PY{n}{r}\PY{o}{\PYZhy{}}\PY{n}{r\PYZus{}area}\PY{p}{:}\PY{n}{r}\PY{o}{+}\PY{n}{r\PYZus{}area}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                         \PY{n}{new\PYZus{}acc}\PY{p}{[}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{b\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{r}\PY{o}{\PYZhy{}}\PY{n}{r\PYZus{}area} \PY{o}{+} \PY{n}{argmax}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n+nb}{max}
+             \PY{k}{return} \PY{n}{new\PYZus{}acc}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{}Interact commented for report generation (no output shown)}
+         \PY{c+c1}{\PYZsh{}@interact(threshold = (0.0,1.,0.01), r\PYZus{}min = (1,30), r\PYZus{}max = (5,70), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          canny\PYZus{}1 = (10,150,10), canny\PYZus{}2 = (50,300,10), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          gauss\PYZus{}sigma = (1,10), filter\PYZus{}size = (5,31,2))}
+         \PY{k}{def} \PY{n+nf}{img2\PYZus{}coins}\PY{p}{(}\PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.67}\PY{p}{,} \PY{n}{r\PYZus{}min} \PY{o}{=} \PY{l+m+mi}{25}\PY{p}{,} \PY{n}{r\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{45}\PY{p}{,} \PY{n}{canny\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{40}\PY{p}{,} \PY{n}{canny\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{60}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{filter\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+             \PY{n}{start} \PY{o}{=} \PY{n}{timer}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{img2\PYZus{}coins} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input2.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+             \PY{n}{img2\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img2\PYZus{}coins}\PY{p}{,} \PY{p}{(}\PY{n}{filter\PYZus{}size}\PY{p}{,}\PY{n}{filter\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+         
+             \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{360}
+             \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img2\PYZus{}coins}\PY{o}{.}\PY{n}{shape}
+         
+             \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{img2\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img2\PYZus{}blurred}\PY{p}{,} \PY{n}{canny\PYZus{}1}\PY{p}{,} \PY{n}{canny\PYZus{}2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img2\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+                 
+             \PY{n}{H} \PY{o}{=} \PY{n}{circles\PYZus{}accumulator}\PY{p}{(}\PY{n}{img2\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{r\PYZus{}max}\PY{p}{)}
+         
+             \PY{n}{H} \PY{o}{=} \PY{n}{max\PYZus{}filter\PYZus{}circle}\PY{p}{(}\PY{n}{H}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+             
+             \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{threshold}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{circle} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+                 \PY{n}{c} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{Circle}\PY{p}{(}\PY{p}{(}\PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{n+nb+bp}{False}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img2\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+         
+             \PY{n}{end} \PY{o}{=} \PY{n}{timer}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(end\PYZhy{}start)}
+             
+         \PY{c+c1}{\PYZsh{}Force function output with best parameters for report generation (no output shown otherwise)}
+         \PY{n}{img2\PYZus{}coins}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{8. Sensitivity to distortion}\label{sensitivity-to-distortion}
+
+    \subsection{8.a. Line and circle finders on the distorted image (input
+3)}\label{a.-line-and-circle-finders-on-the-distorted-image-input-3}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{}Interact commented for report generation (no output shown)}
+         \PY{c+c1}{\PYZsh{}@interact(threshold = (0.0,1.,0.01), step\PYZus{}d = (1,20), step\PYZus{}theta = (1,20), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          canny\PYZus{}1 = (10,150,10), canny\PYZus{}2 = (50,300,10), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          gauss\PYZus{}sigma = (1,10), filter\PYZus{}size = (5,31,2))}
+         \PY{k}{def} \PY{n+nf}{img3\PYZus{}pens}\PY{p}{(}\PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.84}\PY{p}{,} \PY{n}{step\PYZus{}d} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{step\PYZus{}theta} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{canny\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{canny\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{filter\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+             \PY{n}{img3\PYZus{}pens} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input3.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+             \PY{n}{img3\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img3\PYZus{}pens}\PY{p}{,} \PY{p}{(}\PY{n}{filter\PYZus{}size}\PY{p}{,} \PY{n}{filter\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+         
+             \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{180}
+             \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img3\PYZus{}pens}\PY{o}{.}\PY{n}{shape}
+         
+             \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{img3\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img3\PYZus{}blurred}\PY{p}{,} \PY{n}{canny\PYZus{}1}\PY{p}{,} \PY{n}{canny\PYZus{}2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img3\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+                 
+             \PY{n}{H} \PY{o}{=} \PY{n}{custom\PYZus{}accumulator}\PY{p}{(}\PY{n}{img3\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{d\PYZus{}max}\PY{p}{,} \PY{n}{theta\PYZus{}max}\PY{p}{,} \PY{n}{step\PYZus{}d}\PY{p}{,} \PY{n}{step\PYZus{}theta}\PY{p}{)}
+             \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{threshold}\PY{p}{)}
+                 
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{H}\PY{p}{)}
+             \PY{k}{for} \PY{n+nb}{max} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{peak}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{max}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hough space}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{produce\PYZus{}line}\PY{p}{,} \PY{p}{[}\PY{n}{sampling\PYZus{}fix}\PY{p}{(}\PY{n}{peak}\PY{p}{,} \PY{n}{step\PYZus{}d}\PY{p}{,} \PY{n}{step\PYZus{}theta}\PY{p}{)} \PY{k}{for} \PY{n}{peak} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img3\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}Force function output with best parameters for report generation (no output shown otherwise)}
+         \PY{n}{img3\PYZus{}pens}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The left pen is particularly difficult to capture, as with the
+perpective projection, it's contours aren't well laid out in lines. As
+it can be seen in the edge image, the borders have segments of small
+straight vertical lines in groups that are each off by a few pixels
+(instead of a clear, diagonal line). As such, the borders are seen as
+multiple independent lines for each segment due to perspective.
+
+While it is ultimately possible to retrieve the lines of the contour of
+the left pen, they will only be supported by a few edges, which means
+that we would have to lower the \texttt{threshold} to about .35 to
+accept these few votes, resulting in an end image with a lot of false
+positives as well. A choice has been made to show a clearer image, with
+only the detection of the right pen.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{}Interact commented for report generation (no output shown)}
+         \PY{c+c1}{\PYZsh{}@interact(threshold = (0.0,1.,0.01), r\PYZus{}min = (1,30), r\PYZus{}max = (5,70), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          canny\PYZus{}1 = (10,150,10), canny\PYZus{}2 = (50,300,10), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          gauss\PYZus{}sigma = (1,10), filter\PYZus{}size = (5,31,2))}
+         \PY{k}{def} \PY{n+nf}{img3\PYZus{}coins}\PY{p}{(}\PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.67}\PY{p}{,} \PY{n}{r\PYZus{}min} \PY{o}{=} \PY{l+m+mi}{25}\PY{p}{,} \PY{n}{r\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{canny\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{canny\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{60}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{filter\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+             \PY{n}{start} \PY{o}{=} \PY{n}{timer}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{img3\PYZus{}coins} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input3.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+             \PY{n}{img3\PYZus{}coins\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img3\PYZus{}coins}\PY{p}{,} \PY{p}{(}\PY{n}{filter\PYZus{}size}\PY{p}{,}\PY{n}{filter\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+         
+             \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{360}
+             \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img3\PYZus{}coins}\PY{o}{.}\PY{n}{shape}
+         
+             \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{img3\PYZus{}coins\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}blurred}\PY{p}{,} \PY{n}{canny\PYZus{}1}\PY{p}{,} \PY{n}{canny\PYZus{}2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+                 
+             \PY{n}{H} \PY{o}{=} \PY{n}{circles\PYZus{}accumulator}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{r\PYZus{}max}\PY{p}{)}
+         
+             \PY{n}{H} \PY{o}{=} \PY{n}{max\PYZus{}filter\PYZus{}circle}\PY{p}{(}\PY{n}{H}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+             
+             \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{threshold}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{circle} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+                 \PY{n}{c} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{Circle}\PY{p}{(}\PY{p}{(}\PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{n+nb+bp}{False}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+         
+             \PY{n}{end} \PY{o}{=} \PY{n}{timer}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(end\PYZhy{}start)}
+             
+         \PY{c+c1}{\PYZsh{}Force function output with best parameters for report generation (no output shown otherwise)}
+         \PY{n}{img3\PYZus{}coins}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_79_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_79_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{8.b. How to fix the circle
+problem}\label{b.-how-to-fix-the-circle-problem}
+
+    The issue with trying to find circles on the image is that the coins
+won't be detected as circles (because they're not). Since the picture
+was taken from the side with an angle instead of from the top, coins
+appear as ellipses (perspective). This can be easily checked with any
+image processing software: the coins are wider than they are tall. So
+the use of an accumulator relying on votes for a center from edges
+equidistant to it makes no sense: the edges of the coins are from
+varying distances to their center.
+
+There are two approaches that we could imagine to fix the circle
+problem: * Try to "undistort" the image and re-establish scale where
+coins appear as circles * Change the accumulator algorithm so that is
+can recognize ellipses instead of circles.\\
+While the equation of circle is: \((x-a)^2 + (y-b)^2 = r^2\) (where we
+have been looking for a, b, r in Hough space), that of an ellipse is
+\(\frac{(x-a)^2}{r_1^2} + \frac{(y-b)^2}{r_2^2} = 1\)
+
+    \subsection{8.c. Fixing the circle
+problem}\label{c.-fixing-the-circle-problem}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{}Interact commented for report generation (no output shown)}
+         \PY{c+c1}{\PYZsh{}@interact(threshold = (0.0,1.,0.01), r\PYZus{}min = (1,30), r\PYZus{}max = (5,70), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          canny\PYZus{}1 = (10,150,10), canny\PYZus{}2 = (50,300,10), \PYZbs{}}
+         \PY{c+c1}{\PYZsh{}          gauss\PYZus{}sigma = (1,10), filter\PYZus{}size = (5,31,2))}
+         \PY{k}{def} \PY{n+nf}{img3\PYZus{}coins\PYZus{}ps}\PY{p}{(}\PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.67}\PY{p}{,} \PY{n}{r\PYZus{}min} \PY{o}{=} \PY{l+m+mi}{25}\PY{p}{,} \PY{n}{r\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{canny\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{canny\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{60}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{filter\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+             \PY{n}{start} \PY{o}{=} \PY{n}{timer}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{img3\PYZus{}coins\PYZus{}ps} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input3\PYZhy{}ps.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}ps}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+             \PY{n}{img3\PYZus{}coins\PYZus{}ps\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}ps}\PY{p}{,} \PY{p}{(}\PY{n}{filter\PYZus{}size}\PY{p}{,}\PY{n}{filter\PYZus{}size}\PY{p}{)}\PY{p}{,} \PY{n}{gauss\PYZus{}sigma}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+         
+             \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{360}
+             \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img3\PYZus{}coins\PYZus{}ps}\PY{o}{.}\PY{n}{shape}
+         
+             \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{img3\PYZus{}coins\PYZus{}ps\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}ps\PYZus{}blurred}\PY{p}{,} \PY{n}{canny\PYZus{}1}\PY{p}{,} \PY{n}{canny\PYZus{}2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}ps\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+                 
+             \PY{n}{H} \PY{o}{=} \PY{n}{circles\PYZus{}accumulator}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}ps\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{r\PYZus{}max}\PY{p}{)}
+         
+             \PY{n}{H} \PY{o}{=} \PY{n}{max\PYZus{}filter\PYZus{}circle}\PY{p}{(}\PY{n}{H}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+             
+             \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{threshold}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{circle} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+                 \PY{n}{c} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{Circle}\PY{p}{(}\PY{p}{(}\PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{n+nb+bp}{False}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}ps\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+         
+             \PY{n}{end} \PY{o}{=} \PY{n}{timer}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(end\PYZhy{}start)}
+             
+         \PY{c+c1}{\PYZsh{}Force function output with best parameters for report generation (no output shown otherwise)}
+         \PY{n}{img3\PYZus{}coins\PYZus{}ps}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_83_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_83_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A very crude edit on an image editing software to try to distort and
+"undo" perspective gives us this result.
+
+    Now, looking at the ellipses accumulator.\\
+Knowing that the equation of an ellipse is
+\(\frac{(x-a)^2}{r_1^2} + \frac{(y-b)^2}{r_2^2} = 1\), we can construct
+two equations for a and b similar to those found in the case of the
+circle:\\
+\(a = x - r_1 cos(\theta)\) and \(b = y + r_2 sin(\theta)\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k}{def} \PY{n+nf}{ellipses\PYZus{}accumulator}\PY{p}{(}\PY{n}{edges}\PY{p}{,} \PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{r\PYZus{}max}\PY{p}{)}\PY{p}{:}
+             \PY{n}{edges\PYZus{}cord} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{edges} \PY{o}{==} \PY{l+m+mi}{255}\PY{p}{)}
+             
+             \PY{n}{r\PYZus{}range} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n}{r\PYZus{}min}\PY{p}{,} \PY{n}{r\PYZus{}max} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{a\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{edges\PYZus{}cord}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{r\PYZus{}max} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{b\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{edges\PYZus{}cord}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{r\PYZus{}max} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}                
+             \PY{n}{H} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{a\PYZus{}max}\PY{p}{,} \PY{n}{b\PYZus{}max}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{r\PYZus{}range}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{r\PYZus{}range}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{e}\PY{p}{,} \PY{n}{edge} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{edges\PYZus{}cord}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{r1} \PY{o+ow}{in} \PY{n}{r\PYZus{}range}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{r2} \PY{o+ow}{in} \PY{n}{r\PYZus{}range}\PY{p}{:}
+                         \PY{k}{for} \PY{n}{theta} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{360}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{r2}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                             \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{edge}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{r1}\PY{o}{*}\PY{n}{math}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{rad}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                             \PY{n}{H}\PY{p}{[}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{r1} \PY{o}{\PYZhy{}} \PY{n}{r\PYZus{}min}\PY{p}{,}\PY{n}{r2} \PY{o}{\PYZhy{}} \PY{n}{r\PYZus{}min}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{k}{return} \PY{n}{H}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}as the computation time for this part was already very long, no optimization here.}
+        \PY{n}{img3\PYZus{}coins} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./ps1\PYZhy{}input3.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}GRAYSCALE}\PY{p}{)}
+        \PY{n}{img3\PYZus{}coins\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{img3\PYZus{}coins}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{BORDER\PYZus{}REFLECT}\PY{p}{)}
+        
+        \PY{n}{theta\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{360}
+        \PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)} \PY{o}{=} \PY{n}{img3\PYZus{}coins}\PY{o}{.}\PY{n}{shape}
+        
+        \PY{n}{d\PYZus{}max} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x\PYZus{}max}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{img3\PYZus{}coins\PYZus{}edges\PYZus{}blurred} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}blurred}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+        
+        \PY{n}{H} \PY{o}{=} \PY{n}{ellipses\PYZus{}accumulator}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}edges\PYZus{}blurred}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{}Interact commented for report generation (no output shown)}
+         \PY{c+c1}{\PYZsh{}@interact(threshold = (0.0,1.,0.01))}
+         \PY{k}{def} \PY{n+nf}{img3\PYZus{}coins\PYZus{}2}\PY{p}{(}\PY{n}{threshold} \PY{o}{=} \PY{l+m+mf}{0.77}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}threshold only, too long to compute  }
+             \PY{n}{max\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argwhere}\PY{p}{(}\PY{n}{H} \PY{o}{\PYZgt{}} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{threshold}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{circle} \PY{o+ow}{in} \PY{n}{max\PYZus{}values}\PY{p}{:}
+                 \PY{n}{e} \PY{o}{=} \PY{n}{Ellipse}\PY{p}{(}\PY{p}{(}\PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{circle}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill} \PY{o}{=} \PY{n+nb+bp}{False}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{e}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img3\PYZus{}coins\PYZus{}blurred}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{vmin} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{vmax} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}Force function output with best parameters for report generation (no output shown otherwise)}
+         \PY{n}{img3\PYZus{}coins\PYZus{}2}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    While still getting an idea of where most coins are, this algorithm is
+terribly inefficient. Using the single point method for circles wasn't
+especially computationally easy, it remained reasonable (about 15
+minutes on a laptop). The "naive" algorithm implemented here actually
+adds complexity to the problem with an extra dimension to vote in (and
+computations are now made in the order of several hours).
+
+Optimized versions of the Hough transform exist (reducing the complexity
+of the search):\\
+Yonghong Xie and Qiang Ji, "A new efficient ellipse detection method,"
+Object recognition supported by user interaction for service robots,
+Quebec City, Quebec, Canada, 2002, pp. 957-960 vol.2. doi:
+10.1109/ICPR.2002.1048464
+
+However, a more fundamental problem lies with the perspective of the
+image. For example, the bottom right coin, due to being on the sides, is
+more affected by perspective. It appears slightly distorted, with a
+larger right side (ressembling an egg).
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
